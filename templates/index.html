@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-{% include 'includes/head.html' with title="Home"  %}
-<body>
+{% extends 'layout.html' %}
 
-{% include 'includes/navbar.html' %}
+{% block content %}
 
-<div class="container">
+
     <div class="row">
         <div class="col-md-12">
             <h1>Resume App</h1>
@@ -25,11 +22,13 @@
             <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
-</div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"></script>
-</body>
-</html>
+{% endblock %}
+
+{% block extra_scripts %}
+	<script>
+
+    console.log('HELLOWORD')
+    </script>
+{% endblock %}
