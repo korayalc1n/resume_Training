@@ -3,6 +3,8 @@ from django.db import models
 from resume.custom_storages import DocumentStorage, ImageSettingStorage
 
 
+
+
 # Create your models here.
 
 class AbstractModel(models.Model):

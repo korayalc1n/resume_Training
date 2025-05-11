@@ -1,16 +1,47 @@
-version: "3.8"
+
 services:
+  postgres:
+    image: postgres:latest
+    env_file:
+      - resume/docker.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - "postgresql-data:/var/lib/postgresql/data"
+    command: -p 5432
   app:
+    container_name: app_resume_test
+    hostname: app_resume_test
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      - postgres
     env_file:
       - resume/docker.env
-
+    environment:
+      - PYTHONPATH=/srv/app
     volumes:
       - .:/srv/app
+      #fffffffffffffff  "0.0.0.0:8000:8000" ports
     ports:
+
       - "0.0.0.0:8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
+
+    command: >
+      sh -c "python manage.py migrate && gunicorn resume.wsgi:application --bind 0.0.0.0:8000"
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - 80:80
+
+
 volumes:
+  postgresql-data:
   static-data:

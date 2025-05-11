@@ -3,7 +3,9 @@ FROM python:3.13-slim
 
 RUN apt-get update
 
+RUN apt-get install libpq-dev -y
 RUN apt-get install python3-dev build-essential -y
+Run apt-get install postgresql-client -y
 
 #set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -22,7 +24,7 @@ COPY . /srv/app
 WORKDIR /srv/app
 
 # Run migrations
-RUN python manage.py migrate
+###################RUN python manage.py migrate
 
 # Expose port 8000 for the Django development server
 EXPOSE 8000
